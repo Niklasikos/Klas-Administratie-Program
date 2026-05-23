@@ -7,7 +7,7 @@ internal class Student
     public string? lastName { get; set; }
     public int? age { get; set; }
 
-    public Student(int studentNumber, string firstName, string lastName, int age)
+    public Student(int? studentNumber, string? firstName, string? lastName, int? age)
     {
         this.studentNumber = studentNumber;
         this.firstName = firstName;

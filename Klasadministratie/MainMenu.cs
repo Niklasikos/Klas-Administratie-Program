@@ -104,7 +104,7 @@ internal class MainMenu
         Student? chosenstudent = students.Find(student => student.studentNumber == studentinput);
         if(chosenstudent != null)
         {
-            Console.WriteLine("Welke Waarde bewerken? 1-4");
+            Console.WriteLine("Welke Optie/Waarde bewerken? 1-4");
             chosenstudent.DisplayInfo();
             Console.WriteLine("1. Voornaam");
             Console.WriteLine("2. Familie naam");
@@ -122,15 +122,26 @@ internal class MainMenu
                 break;
 
                 case 2:
-                    
+                    Console.WriteLine("Nieuwe Familie Naam Student:");
+                    string? nieuweFamilieNaam = Console.ReadLine();
+                    chosenstudent.firstName = nieuweFamilieNaam;
+                    chosenstudent.DisplayInfo();
                 break;
 
                 case 3:
-                
+                    Console.WriteLine("Nieuwe Leeftijd Student:");
+                    string? nieuweLeeftijd = Console.ReadLine();
+                    chosenstudent.age = int.Parse(nieuweLeeftijd);
+                    chosenstudent.DisplayInfo();
                 break;
 
                 case 4:
-                
+                    students.Remove(chosenstudent);
+                    Console.WriteLine("Student Verwijdert");
+                break;
+
+                default:
+                    Console.WriteLine("ongeldige input");
                 break;
             }
         }
