@@ -47,7 +47,7 @@ internal class MainMenu
             break;
 
             case 4:
-                //functie
+                Case4();
             break;
 
             case 13:
@@ -155,19 +155,44 @@ internal class MainMenu
     }
 
     public void Case4()
-    { //classes class
+    {
         Console.Clear();
         Console.WriteLine("Naam Class:");
-        string? firstName = Console.ReadLine();
-        Console.WriteLine("Jaar Class:");
-        string? lastName = Console.ReadLine();
-        Console.WriteLine("Student nummer:");
-        string? agestring = Console.ReadLine();
-        int age = int.Parse(agestring);
-        Student student = new Student(studentNumberLine, firstName, lastName, age);
-        studentNumberLine++;
-        students.Add(student);
-        student.DisplayInfo();
+        string? className = Console.ReadLine();
+        Console.WriteLine("Class Jaar:");
+        string? classjaarstring = Console.ReadLine();
+        int classjaar = int.Parse(classjaarstring);
+        List<Student> studentsToAdd = new List<Student>();
+        Console.WriteLine("Studenten al bijvoegen?:");
+        Console.WriteLine("1: Ja");
+        Console.WriteLine("2: Nee");
+        int studentNumberClass = 1;
+        string inputstring = Console.ReadLine();
+        int inputint = int.Parse(inputstring);
+        switch(inputint)
+        {
+            case 1:
+                foreach (Student students in students)
+                {
+                    students.DisplayInfo();
+                }
+                Console.WriteLine($"Studenten Nummer van student {studentNumberClass}:");
+                string studentNumberinput = Console.ReadLine();
+                int studentNumberInt = int.Parse(studentNumberinput);
+                studentNumberClass++;
+                Student? student = students.Find(students => students.studentNumber == studentNumberInt);
+                studentsToAdd.Add(student);
+            break;
+            case 2:
+                Console.WriteLine("Studenten kunnen later bijgevoegd worden");
+            break;
+            default:
+                Console.WriteLine("geen geldig input");
+            break;
+        }
+        SchoolClass schoolClass = new SchoolClass(className, classjaar, studentsToAdd);
+        schoolClasses.Add(schoolClass);
+        schoolClass.DisplayInfo();
         Console.WriteLine("Press Enter to Continue");
         Console.ReadLine();
         MainMenuText();
