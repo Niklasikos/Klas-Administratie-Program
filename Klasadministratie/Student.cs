@@ -24,4 +24,11 @@ internal class Student
         Console.WriteLine($"Student age: {age}");
         Console.WriteLine("=========================================================");
     }
+
+    public void DisplayInfoShort()
+    {
+        Console.WriteLine("=========================================================");
+        Console.WriteLine($"{studentNumber} | {firstName} {lastName} | {age}");
+        Console.WriteLine("=========================================================");    
+    }
 }
