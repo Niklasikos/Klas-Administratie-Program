@@ -6,6 +6,7 @@ internal class Student
     public string? firstName { get; set; }
     public string? lastName { get; set; }
     public int? age { get; set; }
+    public bool? addedToClass {get; set;}
 
     public Student(int? studentNumber, string? firstName, string? lastName, int? age)
     {

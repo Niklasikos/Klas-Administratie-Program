@@ -28,17 +28,24 @@ internal class SchoolClass
         Console.WriteLine("=========================================================");
     }
 
-    public void RemoveStudent(int studentNumberAdd)
-    {
-        Student student = studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == studentNumberAdd);
-        studentenInClass.Remove(student);
-    }
-
-    public void AddStudent(Student student)
+    public void RemoveStudent(Student? student)
     {
         if (student == studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
         {
-            Console.WriteLine("Student al in deze Class. Aub afbreken of andere Student nummer gebruiken.");
+            studentenInClass.Remove(student);
+            Console.WriteLine("Student verwijdert.");
+        }
+        if (student != studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
+        {
+            Console.WriteLine("Student zit niet in deze Class");
+        }
+    }
+
+    public void AddStudent(Student? student)
+    {
+        if (student == studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
+        {
+            Console.WriteLine("Student zit al in deze Class. Aub afbreken of andere Student nummer gebruiken.");
         }
         if (student != studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
         {

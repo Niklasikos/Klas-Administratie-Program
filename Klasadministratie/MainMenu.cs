@@ -1,10 +1,11 @@
 namespace Klasadministratie;
 
-internal class MainMenu
+internal class MainMenu // holy Spaghetti code
 {
     public int studentNumberLine = 1000;
     public List<Student> students = new List<Student>();
     public List<SchoolClass> schoolClasses = new List<SchoolClass>();
+    public List<Lesson> lessons = new List<Lesson>();
     public MainMenu()
     {
         MainMenuText();
@@ -54,6 +55,10 @@ internal class MainMenu
 
                 case 5:
                     Case5();
+                    break;
+
+                case 6:
+                    Case6();
                     break;
 
                 case 13:
@@ -278,6 +283,56 @@ internal class MainMenu
             Console.WriteLine("3. Studenten In Class bewerken");
             Console.WriteLine("4. Class verwijdern");
             string? inputstring = Console.ReadLine();
+            int? inputint = int.Parse(inputstring);
+            switch (inputint)
+            {
+                case 1:
+                    Console.WriteLine("Nieuwe Naam Class:");
+                    string? nieuweNaam = Console.ReadLine();
+                    schoolClassChosen.className = nieuweNaam;
+                    schoolClassChosen.DisplayInfo();
+                    break;
+
+                case 2:
+                    Console.WriteLine("Nieuw Jaar Class:");
+                    string? nieuwJaar = Console.ReadLine();
+                    schoolClassChosen.classyear = int.Parse(nieuwJaar);
+                    schoolClassChosen.DisplayInfo();
+                    break;
+
+                case 3:
+                    Console.WriteLine($"Studenten Nummer van student uit/voor {schoolClassChosen.className}:");
+                    string? studentNumberinput = Console.ReadLine();
+                    int? studentNumberInt = int.Parse(studentNumberinput);
+                    Student? student = students.Find(students => students.studentNumber == studentNumberInt);
+                    Console.WriteLine("Welke Optie? 1-2");
+                    Console.WriteLine("1. Student In Class bijvoegen");
+                    Console.WriteLine("2. Student Uit Class verwijdern");
+                    string? optieString = Console.ReadLine();
+                    int? optieInt = int.Parse(optieString);
+                    switch (optieInt)
+                    {
+                        case 1:
+                            schoolClassChosen.AddStudent(student);
+                        break;
+                        case 2:
+                            schoolClassChosen.RemoveStudent(student);
+                        break;
+                        default:
+                            Console.WriteLine("Geen geldig input");
+                        break;
+                    }
+                    break;
+
+                case 4:
+                    schoolClasses.Remove(schoolClassChosen);
+                    Console.WriteLine("Class Verwijdert");
+                    break;
+
+                default:
+                    Console.WriteLine("Geen geldig input");
+                    break;
+            }
         }
         else
         {
@@ -286,6 +341,11 @@ internal class MainMenu
         Console.WriteLine("Press Enter to Continue");
         Console.ReadLine();
         MainMenuText();
+    }
+
+    public void Case7()
+    {
+        
     }
 
     public void Case13()
