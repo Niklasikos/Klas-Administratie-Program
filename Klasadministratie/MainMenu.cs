@@ -261,22 +261,31 @@ internal class MainMenu
 
     public void Case6()
     {
-        // Later om te checken of student al in class zit
-
-        // Console.WriteLine($"Studenten Nummer van student {studentNumberClass}:");
-        // string? studentNumberinput = Console.ReadLine();
-        // int? studentNumberInt = int.Parse(studentNumberinput);
-        // Student? student = students.Find(students => students.studentNumber == studentNumberInt);
-        // if (student == studentsToAdd.Find(studentsToAdd => studentsToAdd.studentNumber == student.studentNumber))
-        // {
-        //     Console.WriteLine("Student al in deze Class. Aub afbreken of andere Student nummer gebruiken.");
-        // }
-        // if (student != studentsToAdd.Find(studentsToAdd => studentsToAdd.studentNumber == student.studentNumber))
-        // {
-        //     studentsToAdd.Add(student);
-        //     Console.WriteLine("Student Bijgevoegd");
-        //     studentNumberClass++;
-        // }
+        Console.Clear();
+        foreach (SchoolClass schoolClass in schoolClasses)
+        {
+            schoolClass.DisplayInfo();
+        }
+        Console.WriteLine("Class info bewerken. Class naam: ");
+        string? classinput = Console.ReadLine();
+        SchoolClass schoolClassChosen = schoolClasses.Find(schoolClasses => schoolClasses.className == classinput);
+        if (schoolClassChosen != null)
+        {
+            Console.WriteLine("Welke Optie/Waarde bewerken? 1-4");
+            schoolClassChosen.DisplayInfo();
+            Console.WriteLine("1. Class Naam");
+            Console.WriteLine("2. Class Jaar");
+            Console.WriteLine("3. Studenten In Class bewerken");
+            Console.WriteLine("4. Class verwijdern");
+            string? inputstring = Console.ReadLine();
+        }
+        else
+        {
+            Console.WriteLine("Geen geldige Class Naam");
+        }
+        Console.WriteLine("Press Enter to Continue");
+        Console.ReadLine();
+        MainMenuText();
     }
 
     public void Case13()
