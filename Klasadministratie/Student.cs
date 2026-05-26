@@ -1,12 +1,12 @@
 namespace Klasadministratie;
 
-internal class Student
+public class Student
 {
     public int? studentNumber { get; set; }
     public string? firstName { get; set; }
     public string? lastName { get; set; }
     public int? age { get; set; }
-    public bool? addedToClass {get; set;}
+    public bool? addedToClass = false;
 
     public Student(int? studentNumber, string? firstName, string? lastName, int? age)
     {

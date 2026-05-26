@@ -1,11 +1,11 @@
 namespace Klasadministratie;
 
-internal class SchoolClass
+public class SchoolClass
 {
     public string? className {get; set;}
     public int? classyear {get; set;}
     public List<Student> studentenInClass = new List<Student>();
-    internal SchoolClass(string? className, int? classyear, List<Student> students)
+    public SchoolClass(string? className, int? classyear, List<Student> students)
     {
         this.className = className;
         this.classyear = classyear;
@@ -35,7 +35,7 @@ internal class SchoolClass
             studentenInClass.Remove(student);
             Console.WriteLine("Student verwijdert.");
         }
-        if (student != studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
+        else if (student != studentenInClass.Find(studentenInClass => studentenInClass.studentNumber == student.studentNumber))
         {
             Console.WriteLine("Student zit niet in deze Class");
         }
