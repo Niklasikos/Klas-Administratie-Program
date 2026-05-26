@@ -1,12 +1,13 @@
+using System.Text.Json.Serialization;
+using System.Runtime;
 namespace Klasadministratie;
-
 public class Student
 {
     public int? studentNumber { get; set; }
     public string? firstName { get; set; }
     public string? lastName { get; set; }
     public int? age { get; set; }
-    public bool? addedToClass = false;
+    public bool? addedToClass {get; set;} = false;
 
     public Student(int? studentNumber, string? firstName, string? lastName, int? age)
     {

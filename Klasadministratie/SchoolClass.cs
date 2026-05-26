@@ -4,7 +4,7 @@ public class SchoolClass
 {
     public string? className {get; set;}
     public int? classyear {get; set;}
-    public List<Student> studentenInClass = new List<Student>();
+    public List<Student?> studentenInClass {get; set;} = new List<Student?>();
     public SchoolClass(string? className, int? classyear, List<Student> students)
     {
         this.className = className;

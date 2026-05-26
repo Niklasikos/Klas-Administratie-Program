@@ -1,16 +1,76 @@
 namespace Klasadministratie;
+using System.Text.Json;
+
+enum MenuOptions
+{
+    Options, // Options is null en wordt niet gebruikt
+    AddStudent,
+    ViewStudents,
+    ChangeStudentInfo,
+    AddClass,
+    ViewClasses,
+    ChangeClassInfo,
+    AddTeacher,
+    ViewTeachers,
+    ChangeTeacherInfo,
+    AddLesson,
+    ViewLessons,
+    ChangeLessonInfo,
+    ViewRooster,
+    Quit
+}
 
 internal class MainMenu // holy Spaghetti code
 {
     public int studentNumberLine = 1000;
     public int lessonNumber = 100;
-    public List<Student> students = new List<Student>();
-    public List<SchoolClass> schoolClasses = new List<SchoolClass>();
-    public List<Lesson> lessons = new List<Lesson>();
-    public List<Teacher> teachers = new List<Teacher>();
+    public List<Student?> students {get; set;} = new List<Student?>();
+    public List<SchoolClass?> schoolClasses {get; set;} = new List<SchoolClass?>();
+    public List<Lesson?> lessons {get; set;} = new List<Lesson?>();
+    public List<Teacher?> teachers {get; set;} = new List<Teacher?>();
+    public string? studentsFile {get; set;} = "students.json";
+    public string? schoolClassesFile {get; set;} = "schoolClasses.json";
+    public string? lessonsFile {get; set;} = "lessons.json";
+    public string? teachersFile {get; set;} = "teachers.json";
     public MainMenu()
     {
+        LoadFiles();
         MainMenuText();
+    }
+
+    public void SaveFiles()
+    {
+        // string? jsonStringStudents = JsonSerializer.Serialize(students);
+        // File.WriteAllText(studentsFile, jsonStringStudents);
+
+        // string? jsonStringschoolclasses = JsonSerializer.Serialize(schoolClasses, new JsonSerializerOptions());
+        // File.WriteAllText(schoolClassesFile, jsonStringschoolclasses);
+
+        // string? jsonStringTeachers = JsonSerializer.Serialize(teachers);
+        // File.WriteAllText(teachersFile, jsonStringTeachers);
+
+        // string? jsonStringLessons = JsonSerializer.Serialize(lessons);
+        // File.WriteAllText(lessonsFile, jsonStringLessons);
+    }
+
+    public void LoadFiles()
+    {
+        // if(File.Exists(studentsFile) == true)
+        // {
+        //     students = JsonSerializer.Deserialize<List<Student?>>(File.ReadAllText(studentsFile));
+        // }
+        // if(File.Exists(schoolClassesFile) == true)
+        // {
+        //     schoolClasses = JsonSerializer.Deserialize<List<SchoolClass?>>(File.ReadAllText(schoolClassesFile));
+        // }
+        // if(File.Exists(teachersFile) == true)
+        // {
+        //     teachers = JsonSerializer.Deserialize<List<Teacher?>>(File.ReadAllText(teachersFile));
+        // }
+        // if(File.Exists(lessonsFile) == true)
+        // {
+        //     lessons = JsonSerializer.Deserialize<List<Lesson?>>(File.ReadAllText(lessonsFile));
+        // }
     }
 
     public void MainMenuText()
@@ -44,60 +104,60 @@ internal class MainMenu // holy Spaghetti code
             int? input = int.Parse(inputstring);
             switch (input)
             {
-                case 1:
-                    Case1();
+                case (int)MenuOptions.AddStudent:
+                    AddStudent();
                     break;
 
-                case 2:
-                    Case2();
+                case (int)MenuOptions.ViewStudents:
+                    ViewStudents();
                     break;
 
-                case 3:
-                    Case3();
+                case (int)MenuOptions.ChangeStudentInfo:
+                    ChangeStudentInfo();
                     break;
 
-                case 4:
-                    Case4();
+                case (int)MenuOptions.AddClass:
+                    AddClass();
                     break;
 
-                case 5:
-                    Case5();
+                case (int)MenuOptions.ViewClasses:
+                    ViewClasses();
                     break;
 
-                case 6:
-                    Case6();
+                case (int)MenuOptions.ChangeClassInfo:
+                    ChangeClassInfo();
                     break;
 
-                case 7:
-                    Case7();
+                case (int)MenuOptions.AddTeacher:
+                    AddTeacher();
                     break;
 
-                case 8:
-                    Case8();
+                case (int)MenuOptions.ViewTeachers:
+                    ViewTeachers();
                     break;
 
-                case 9:
-                    Case9();
+                case (int)MenuOptions.ChangeTeacherInfo:
+                    ChangeTeacherInfo();
                     break;
 
-                case 10:
-                    Case10();
+                case (int)MenuOptions.AddLesson:
+                    AddLesson();
                     break;
 
-                case 11:
-                    Case11();
+                case (int)MenuOptions.ViewLessons:
+                    ViewLessons();
                     break;
 
-                case 12:
-                    Case12();
+                case (int)MenuOptions.ChangeLessonInfo:
+                    ChangeLessonInfo();
                     break;
 
-                case 13:
-                    Case13();
+                case (int)MenuOptions.ViewRooster:
+                    ViewRooster();
                     break;
 
-                case 14:
-                    Case14();
+                case (int)MenuOptions.Quit:
+                    Quit();
                     break;
 
                 default:
@@ -118,7 +178,7 @@ internal class MainMenu // holy Spaghetti code
 
     }
 
-    private void Case1()
+    private void AddStudent()
     {
         Console.Clear();
         Console.WriteLine("Voornaam Student:");
@@ -137,7 +197,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    private void Case2()
+    private void ViewStudents()
     {
         Console.Clear();
         foreach (Student students in students)
@@ -149,7 +209,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    private void Case3()
+    private void ChangeStudentInfo()
     {
         Console.Clear();
         foreach (Student students in students)
@@ -212,7 +272,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case4()
+    public void AddClass()
     {
         Console.Clear();
         Console.WriteLine("Class Naam:");
@@ -291,7 +351,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case5()
+    public void ViewClasses()
     {
         Console.Clear();
         foreach (SchoolClass schoolClass in schoolClasses)
@@ -303,7 +363,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case6()
+    public void ChangeClassInfo()
     {
         Console.Clear();
         foreach (SchoolClass schoolClass in schoolClasses)
@@ -395,7 +455,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case7()
+    public void AddTeacher()
     {
         Console.Clear();
         Console.WriteLine("Voornaam Docent:");
@@ -413,7 +473,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case8()
+    public void ViewTeachers()
     {
         Console.Clear();
         foreach (Teacher teacher in teachers)
@@ -425,7 +485,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case9()
+    public void ChangeTeacherInfo()
     {
         Console.Clear();
         foreach (Teacher teacher in teachers)
@@ -487,7 +547,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case10() //
+    public void AddLesson() //
     {
         Console.Clear();
         Console.WriteLine("Vak naam:");
@@ -569,7 +629,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case11()
+    public void ViewLessons()
     {
         Console.Clear();
         foreach (Lesson lesson in lessons)
@@ -581,7 +641,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case12()
+    public void ChangeLessonInfo()
     {
         Console.Clear();
         foreach (Lesson lesson in lessons)
@@ -722,7 +782,7 @@ internal class MainMenu // holy Spaghetti code
         MainMenuText();
     }
 
-    public void Case13()
+    public void ViewRooster()
     {
         Console.WriteLine("Maandag==================================================");
         foreach (Lesson lesson in lessons)
@@ -768,8 +828,9 @@ internal class MainMenu // holy Spaghetti code
         Console.ReadLine();
         MainMenuText();
     }
-    public void Case14()
+    public void Quit()
     {
+        SaveFiles();        
         Environment.Exit(0);
     }
 }
