@@ -3,6 +3,7 @@ namespace Klasadministratie;
 internal class MainMenu // holy Spaghetti code
 {
     public int studentNumberLine = 1000;
+    public int lessonNumber = 100;
     public List<Student> students = new List<Student>();
     public List<SchoolClass> schoolClasses = new List<SchoolClass>();
     public List<Lesson> lessons = new List<Lesson>();
@@ -67,7 +68,7 @@ internal class MainMenu // holy Spaghetti code
                     Case6();
                     break;
 
-                case 7: 
+                case 7:
                     Case7();
                     break;
 
@@ -87,7 +88,7 @@ internal class MainMenu // holy Spaghetti code
                     Case11();
                     break;
 
-                case 12: 
+                case 12:
                     Case12();
                     break;
 
@@ -351,23 +352,23 @@ internal class MainMenu // holy Spaghetti code
                     switch (optieInt)
                     {
                         case 1:
-                            if(student.addedToClass == false)
+                            if (student.addedToClass == false)
                             {
-                                schoolClassChosen.AddStudent(student); 
+                                schoolClassChosen.AddStudent(student);
                                 student.addedToClass = true;
                             }
-                            else if(student.addedToClass == true)
+                            else if (student.addedToClass == true)
                             {
                                 Console.WriteLine("Student zit al in een class");
                             }
-                        break;
+                            break;
                         case 2:
                             schoolClassChosen.RemoveStudent(student);
                             student.addedToClass = false;
-                        break;
+                            break;
                         default:
                             Console.WriteLine("Geen geldig input");
-                        break;
+                            break;
                     }
                     break;
 
@@ -434,7 +435,7 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Docent info bewerken. Docent Familie naam: ");
         string? docentInput = Console.ReadLine();
         Teacher teacherchosen = teachers.Find(teachers => teachers.familyName == docentInput);
-        if(teacherchosen != null)
+        if (teacherchosen != null)
         {
             Console.WriteLine("Welke Optie/Waarde bewerken? 1-4");
             teacherchosen.DisplayInfo();
@@ -498,7 +499,7 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Klas naam:");
         string? className = Console.ReadLine();
         SchoolClass? schoolClass = schoolClasses.Find(schoolClasses => schoolClasses.className == className);
-        if(schoolClass != null)
+        if (schoolClass != null)
         {
             foreach (Teacher teachers in teachers)
             {
@@ -507,7 +508,7 @@ internal class MainMenu // holy Spaghetti code
             Console.WriteLine("Familie naam Docent:");
             string? familyName = Console.ReadLine();
             Teacher? teacher = teachers.Find(teachers => teachers.familyName == familyName);
-            if(teacher != null)
+            if (teacher != null)
             {
                 Console.WriteLine("Lokaal nummer:");
                 string? classRoom = Console.ReadLine();
@@ -521,7 +522,7 @@ internal class MainMenu // holy Spaghetti code
                 Console.WriteLine("5: Vrijdag ");
                 string? inputstring = Console.ReadLine();
                 int inputint = int.Parse(inputstring);
-                string? day = "Monday";
+                string? day = "Maandag";
                 switch (inputint)
                 {
                     case 1:
@@ -536,7 +537,7 @@ internal class MainMenu // holy Spaghetti code
                         day = "Woensdag";
                         break;
 
-                    case 4: 
+                    case 4:
                         day = "Donderdag";
                         break;
 
@@ -548,17 +549,18 @@ internal class MainMenu // holy Spaghetti code
                         Console.WriteLine("Geen geldig Input");
                         break;
                 }
-                Lesson lesson = new Lesson(vak, schoolClass, teacher, classRoom, startTime, day);
+                Lesson lesson = new Lesson(vak, schoolClass, teacher, classRoom, startTime, day, lessonNumber);
+                lessonNumber++;
                 lessons.Add(lesson);
                 lesson.DisplayInfo();
             }
-            else if(teacher == null)
+            else if (teacher == null)
             {
                 Console.WriteLine("Docent niet gevonden");
             }
 
         }
-        else if(schoolClass == null)
+        else if (schoolClass == null)
         {
             Console.WriteLine("SchoolClass niet gevonden");
         }
@@ -581,7 +583,143 @@ internal class MainMenu // holy Spaghetti code
 
     public void Case12()
     {
-        
+        Console.Clear();
+        foreach (Lesson lesson in lessons)
+        {
+            lesson.DisplayInfo();
+        }
+        Console.WriteLine("Les info bewerken. les nummer: ");
+        string? lesInput = Console.ReadLine();
+        int? lesnummer = int.Parse(lesInput);
+        Lesson? leschosen = lessons.Find(lessons => lessons.lessonNumber == lesnummer);
+        if (leschosen != null)
+        {
+            Console.WriteLine("Welke Optie/Waarde bewerken? 1-7");
+            leschosen.DisplayInfo();
+            Console.WriteLine("1. Vak");
+            Console.WriteLine("2. Klas");
+            Console.WriteLine("3. Docent");
+            Console.WriteLine("4. Lokaal");
+            Console.WriteLine("5. Start Tijd");
+            Console.WriteLine("6. Dag");
+            Console.WriteLine("7. Les verwijdern");
+            string? inputstring = Console.ReadLine();
+            int input = int.Parse(inputstring);
+            switch (input)
+            {
+                case 1:
+                    Console.WriteLine("Nieuw Vak:");
+                    leschosen.subject = Console.ReadLine();
+                    leschosen.DisplayInfo();
+                    break;
+
+                case 2:
+                    foreach (SchoolClass schoolClass in schoolClasses)
+                    {
+                        schoolClass.DisplayInfo();
+                    }
+                    Console.WriteLine("Nieuwe Klas naam:");
+                    string? nieuweKlasNaam = Console.ReadLine();
+                    SchoolClass? schoolClass1 = schoolClasses.Find(schoolClasses => schoolClasses.className == nieuweKlasNaam);
+                    if (schoolClass1 != null)
+                    {
+                        leschosen.schoolClass = schoolClass1;
+                        leschosen.DisplayInfo();
+                    }
+                    if (schoolClass1 == null)
+                    {
+                        Console.WriteLine("Geen geldige Klas gevonden");
+                    }
+                    break;
+
+                case 3:
+                    foreach (Teacher teacher in teachers)
+                    {
+                        teacher.DisplayInfo();
+                    }
+                    Console.WriteLine("Familie naam van nieuwe docent:");
+                    string? nieuweDocent = Console.ReadLine();
+                    Teacher? teacher1 = teachers.Find(teachers => teachers.familyName == nieuweDocent);
+                    if (teacher1 != null)
+                    {
+                        leschosen.teacher = teacher1;
+                        leschosen.DisplayInfo();
+                    }
+                    if (teacher1 == null)
+                    {
+                        Console.WriteLine("Geen geldige Docent gevonden");
+                    }
+                    break;
+
+                case 4:
+                    Console.WriteLine("Nieuw Lokaal:");
+                    leschosen.classRoom = Console.ReadLine();
+                    leschosen.DisplayInfo();
+                    break;
+
+                case 5:
+                    Console.WriteLine("Nieuw Start Tijd (in dit format 00:00):");
+                    leschosen.classRoom = Console.ReadLine();
+                    leschosen.DisplayInfo();
+                    break;
+
+                case 6:
+                    Console.WriteLine("Nieuwe Dag 1-5: ");
+                    Console.WriteLine("1: Maandag");
+                    Console.WriteLine("2: Dinsdag");
+                    Console.WriteLine("3: Woensdag ");
+                    Console.WriteLine("4: Donderdag ");
+                    Console.WriteLine("5: Vrijdag ");
+                    string? inputdagstring = Console.ReadLine();
+                    int inputint = int.Parse(inputdagstring);
+                    string? day = "Maandag";
+                    switch (inputint)
+                    {
+                        case 1:
+                            day = "Maandag";
+                            break;
+
+                        case 2:
+                            day = "Dinsdag";
+                            break;
+
+                        case 3:
+                            day = "Woensdag";
+                            break;
+
+                        case 4:
+                            day = "Donderdag";
+                            break;
+
+                        case 5:
+                            day = "Vrijdag";
+                            break;
+
+                        default:
+                            Console.WriteLine("Geen geldig Input");
+                            break;
+                    }
+                    leschosen.day = day;
+                    leschosen.DisplayInfo();
+                    break;
+
+                case 7:
+                    lessons.Remove(leschosen);
+                    Console.WriteLine("Les Verwijdert");
+                    break;
+
+                default:
+                    Console.WriteLine("Geen geldig input");
+                    break;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Geen geldige Les gevonden");
+        }
+        Console.WriteLine("Press Enter to Continue");
+        Console.ReadLine();
+        MainMenuText();
     }
 
     public void Case13()
@@ -589,15 +727,15 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Maandag==================================================");
         foreach (Lesson lesson in lessons)
         {
-            if(lesson.day == "Maandag")
+            if (lesson.day == "Maandag")
             {
-                lesson.DisplayInfo();        
+                lesson.DisplayInfo();
             }
         }
         Console.WriteLine("Dinsdag==================================================");
         foreach (Lesson lesson1 in lessons)
         {
-            if(lesson1.day == "Dinsdag")
+            if (lesson1.day == "Dinsdag")
             {
                 lesson1.DisplayInfo();
             }
@@ -605,7 +743,7 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Woensdag=================================================");
         foreach (Lesson lesson2 in lessons)
         {
-            if(lesson2.day == "Woensdag")
+            if (lesson2.day == "Woensdag")
             {
                 lesson2.DisplayInfo();
             }
@@ -613,7 +751,7 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Donderdag================================================");
         foreach (Lesson lesson3 in lessons)
         {
-            if(lesson3.day == "Donderdag")
+            if (lesson3.day == "Donderdag")
             {
                 lesson3.DisplayInfo();
             }
@@ -621,11 +759,14 @@ internal class MainMenu // holy Spaghetti code
         Console.WriteLine("Vrijdag==================================================");
         foreach (Lesson lesson4 in lessons)
         {
-            if(lesson4.day == "Vrijdag")
+            if (lesson4.day == "Vrijdag")
             {
                 lesson4.DisplayInfo();
             }
         }
+        Console.WriteLine("Press Enter to Continue");
+        Console.ReadLine();
+        MainMenuText();
     }
     public void Case14()
     {
